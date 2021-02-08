@@ -94,7 +94,7 @@ class MultimediaPresenterTest() {
 
         verify(exactly = 0) {
             getTvshowsUseCase()
-            view?.run {
+            view.run {
                 hideSkeleton()
                 hideRefresh()
                 loadMultimediaList(multimedia)
@@ -148,7 +148,7 @@ class MultimediaPresenterTest() {
 
         verify(exactly = 0) {
             getMoviesUseCase()
-            view?.run {
+            view.run {
                 hideSkeleton()
                 hideRefresh()
                 loadMultimediaList(multimedia)
