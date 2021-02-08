@@ -1,3 +1,4 @@
+include ':test'
 include ':core'
 include ':app'
 rootProject.name = "Instaflix"

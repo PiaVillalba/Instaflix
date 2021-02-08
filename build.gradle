@@ -15,6 +15,9 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.31-alpha'
         classpath "org.jlleitschuh.gradle:ktlint-gradle:9.3.0"
+        def nav_version = "2.3.2"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+
     }
 }
 

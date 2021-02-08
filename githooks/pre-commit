@@ -1,0 +1,5 @@
+#!/bin/sh
+# https://github.com/shyiko/ktlint pre-commit hook
+./gradlew ktlintCheck
+if [ $? -ne 0 ]; then exit 1; fi
+#exit $?

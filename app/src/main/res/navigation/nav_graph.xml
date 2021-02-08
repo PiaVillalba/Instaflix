@@ -7,7 +7,29 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.piavillalba.instaflix.movies.ui.MoviesFragment"
+        android:name="com.piavillalba.instaflix.multimedia.ui.MultimediaFragment"
         android:label="MoviesFragment"
-        tools:layout="@layout/fragment_movies"/>
+        tools:layout="@layout/fragment_multimedia">
+
+        <argument
+            android:name="multimedia_type"
+            android:defaultValue="MOVIES"
+            app:argType="com.piavillalba.instaflix.multimedia.ui.MultimediaType"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/tvshowsFragment"
+        android:name="com.piavillalba.instaflix.multimedia.ui.MultimediaFragment"
+        android:label="TvshowsFragment"
+        tools:layout="@layout/fragment_multimedia">
+
+        <argument
+            android:name="multimedia_type"
+            android:defaultValue="TVSHOWS"
+            app:argType="com.piavillalba.instaflix.multimedia.ui.MultimediaType"/>
+
+    </fragment>
+
+
 </navigation>
