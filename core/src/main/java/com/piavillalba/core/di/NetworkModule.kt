@@ -76,7 +76,7 @@ object NetworkModule {
         httpClient: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(gsonConverterFactory)
             .client(httpClient)
             .build()

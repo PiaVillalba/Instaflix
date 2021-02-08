@@ -28,4 +28,4 @@ jobs:
         run: ./gradlew ktlintCheck
 
       - name: unittest
-        run: ./gradlew app:clean app:testDebugUnitTest --stacktrace
+        run: ./gradlew multimedia:clean multimedia:testDebugUnitTest --stacktrace

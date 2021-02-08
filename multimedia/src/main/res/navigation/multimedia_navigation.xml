@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/multimedia_navigation"
+    app:startDestination="@id/moviesFragment">
+
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.piavillalba.multimedia.ui.MultimediaFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/fragment_multimedia">
+
+        <argument
+            android:name="multimedia_type"
+            android:defaultValue="MOVIES"
+            app:argType="com.piavillalba.multimedia.ui.MultimediaType"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/tvshowsFragment"
+        android:name="com.piavillalba.multimedia.ui.MultimediaFragment"
+        android:label="TvshowsFragment"
+        tools:layout="@layout/fragment_multimedia">
+
+        <argument
+            android:name="multimedia_type"
+            android:defaultValue="TVSHOWS"
+            app:argType="com.piavillalba.multimedia.ui.MultimediaType"/>
+
+    </fragment>
+
+
+</navigation>

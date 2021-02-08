@@ -2,7 +2,6 @@ import com.piavillalba.buildsrc.DefaultConfig
 import com.piavillalba.buildsrc.Libs
 import com.piavillalba.buildsrc.Releases
 
-
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply from: '../ktlint.gradle'
@@ -13,7 +12,7 @@ android {
 
     defaultConfig {
         minSdkVersion DefaultConfig.sdkMinVersion
-        targetSdkVersion DefaultConfig.sdkMinVersion
+        targetSdkVersion DefaultConfig.sdkTargetVersion
         versionCode Releases.versionCode
         versionName Releases.versionName
 
@@ -40,6 +39,17 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    testOptions {
+        unitTests.all {
+            testLogging {
+                events "passed", "failed", "standardError"
+                showCauses true
+                showExceptions true
+            }
+        }
+    }
+
 }
 
 dependencies {
