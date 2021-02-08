@@ -5,13 +5,11 @@ apply from: '../common.gradle'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
-
 android {
-
-    defaultConfig {
+   
+   defaultConfig {
         applicationId "com.piavillalba.instaflix"
     }
-
 }
 
 dependencies {
@@ -27,5 +25,4 @@ dependencies {
 
     // Modules
     implementation project(path: ':core')
-
 }
