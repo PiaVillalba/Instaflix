@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardContainer">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivMultimediaPoster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_multimedia_placeholder"/>
+
+        <TextView
+            android:id="@+id/tvMultimediaTitle"
+            style="@style/CardTitle"
+            app:layout_constraintStart_toStartOf="@id/ivMultimediaPoster"
+            app:layout_constraintEnd_toEndOf="@id/ivMultimediaPoster"
+            app:layout_constraintTop_toBottomOf="@id/ivMultimediaPoster"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Harry Potter"/>
+
+        <TextView
+            android:id="@+id/tvMultimediaVoteAverage"
+            style="@style/VoteBoxText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4.6" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

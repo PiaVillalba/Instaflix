@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/skeleton_padding"
+    android:background="@color/translucentBackground">
+
+    <ImageView
+        android:id="@+id/ivSkeletonPoster"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/skeleton_image_height"
+        android:background="@drawable/skeleton_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSkeletonTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/skeleton_title_margin_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivSkeletonPoster"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/skeleton_background"
+        android:layout_marginBottom="@dimen/skeleton_title_margin_vertical"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

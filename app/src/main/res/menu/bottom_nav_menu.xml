@@ -9,7 +9,7 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/moviesTvShows"
+        android:id="@+id/tvshowsFragment"
         android:icon="@drawable/ic_baseline_live_tv_24"
         android:title="@string/tvshows_title"
         app:showAsAction="always"/>
