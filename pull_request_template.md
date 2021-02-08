@@ -1,19 +1,21 @@
 ## Description
-
 Please include a summary of the change. Please also include relevant motivation and context. List any dependencies that are required for this change.
 
 ## Type of change 
 (Please delete options that are not relevant)
-Bug fix.
-New feature.
-Documentation update.
+
+- [ ] Bug fix.
+- [ ] New feature.
+- [ ] Documentation update.
 
 ## How Has This Been Tested?
-
 Please describe the tests that you ran to verify your changes. 
 
-- [ ] Test A
-- [ ] Test B
+- [ ] Presenter unit test
+- [ ] Repository unit test
+- [ ] Usecases unit test
+- [ ] User interface test
+
 
 ## Checklist:
 
