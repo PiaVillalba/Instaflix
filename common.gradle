@@ -1,25 +1,28 @@
+import com.piavillalba.buildsrc.DefaultConfig
 import com.piavillalba.buildsrc.Libs
+import com.piavillalba.buildsrc.Releases
 
-plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-}
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply from: '../ktlint.gradle'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion DefaultConfig.sdkCompileVersion
+    buildToolsVersion DefaultConfig.sdkBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion DefaultConfig.sdkMinVersion
+        targetSdkVersion DefaultConfig.sdkMinVersion
+        versionCode Releases.versionCode
+        versionName Releases.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding false
     }
 
     buildTypes {
@@ -28,10 +31,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -41,7 +46,19 @@ dependencies {
 
     // Core
     implementation Libs.kotlinJDK
+    implementation Libs.appCompat
+    implementation Libs.appCompatV4
     implementation Libs.coroutines_core
+
+    // UI
+    implementation Libs.androidMaterial
+    implementation Libs.constraint
+    implementation Libs.skeleton
+    implementation Libs.shimmer
+
+    // Navigation
+    implementation Libs.navigationFragment
+    implementation Libs.navigationUI
 
     // Network
     implementation Libs.retrofit
@@ -50,11 +67,4 @@ dependencies {
     implementation Libs.okhttp_logging_interceptor
     implementation Libs.gson
 
-    // UI
-    implementation Libs.glide
-
-    // Dagger Hilt
-    implementation Libs.hilt_android
-    kapt Libs.hilt_compiler
-
-  }
+}
