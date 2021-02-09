@@ -1,4 +1,4 @@
-package com.piavillalba.multimedia.ui
+package com.piavillalba.core.model
 
 enum class MultimediaType {
     MOVIES,

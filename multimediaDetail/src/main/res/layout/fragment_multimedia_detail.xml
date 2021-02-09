@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clDetail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/translucentBackground"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:requiresFadingEdge="vertical">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/translucentBackground"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/ivDetailPoster"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="false"
+                    android:foreground="@drawable/ic_image_preview"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:layout_scrollFlags="scroll|enterAlways" />
+            </FrameLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/multimediaDetailContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="false"
+        android:padding="@dimen/margin_medium"
+        app:behavior_overlapTop="50dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivDetailPath"
+                android:layout_width="@dimen/widht_medium"
+                android:layout_height="@dimen/height_large"
+                android:layout_gravity="top"
+                android:clipToPadding="false"
+                android:scaleType="fitStart"
+                android:transitionName="multimedia_image"
+                app:layout_anchorGravity="bottom"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDetailTitle"
+                android:textColor="@color/white"
+                android:layout_width="@dimen/zero"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_extra_small"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textStyle="bold"
+                android:textSize="@dimen/title_large_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivDetailPath"
+                app:layout_constraintTop_toTopOf="@+id/ivDetailPath"
+                tools:text="Harry Potter" />
+
+            <TextView
+                android:id="@+id/tvDetailsubtitle"
+                android:textColor="@color/white"
+                android:layout_width="@dimen/zero"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textSize="@dimen/title_medium_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvDetailTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailTitle"/>
+
+            <TextView
+                android:id="@+id/tvDetailRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_extra_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:textSize="@dimen/body_large_text_size"
+                android:textColor="@color/white"
+                android:translationZ="6dp"
+                app:layout_constraintStart_toStartOf="@+id/tvDetailTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailsubtitle"
+                tools:text="89.9" />
+
+            <ImageView
+                android:id="@+id/ivDetailRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_extra_small"
+                android:src="@drawable/ic_rating"
+                app:layout_constraintStart_toEndOf="@+id/tvDetailRating"
+                app:layout_constraintTop_toTopOf="@+id/tvDetailRating"
+                app:layout_constraintBottom_toBottomOf="@id/tvDetailRating"/>
+
+            <TextView
+                android:id="@+id/tvDetailOverview"
+                android:textColor="@color/white"
+                android:layout_width="@dimen/zero"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:justificationMode="inter_word"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivDetailPath"
+                tools:text="Lorem Ipsum Dolor"
+                android:textSize="@dimen/body_large_text_size" />
+
+            <TextView
+                android:id="@+id/tvDetailImagesLabel"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/related_images"
+                android:textSize="@dimen/title_small_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailOverview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDetailImages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:nestedScrollingEnabled="true"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetailImagesLabel"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_poster_image_resource" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

@@ -2,6 +2,7 @@ package com.piavillalba.multimedia.data.entities
 
 import com.google.gson.annotations.SerializedName
 import com.piavillalba.core.constants.IMAGE_BASE_URL
+import com.piavillalba.core.model.MultimediaType
 import com.piavillalba.multimedia.domain.model.MultimediaItem
 
 data class TvshowsResponse(
@@ -28,7 +29,7 @@ data class TvshowsResponseItem(
             image = IMAGE_BASE_URL + this.image,
             title = this.title,
             voteAverage = this.vote.toString(),
-            genres = this.genreIds
-
+            genres = this.genreIds,
+            type = MultimediaType.TVSHOWS
         )
 }

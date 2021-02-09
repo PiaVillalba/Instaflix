@@ -1,11 +1,11 @@
 package com.piavillalba.multimedia
 
+import com.piavillalba.core.model.MultimediaType
 import com.piavillalba.multimedia.domain.model.MultimediaItem
 import com.piavillalba.multimedia.domain.usecase.GetMoviesUseCase
 import com.piavillalba.multimedia.domain.usecase.GetTvshowsUseCase
 import com.piavillalba.multimedia.ui.MultimediaContract
 import com.piavillalba.multimedia.ui.MultimediaPresenter
-import com.piavillalba.multimedia.ui.MultimediaType
 import com.piavillalba.test.CoroutineTestRule
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -27,13 +27,24 @@ class MultimediaPresenterTest() {
     private val view = mockk<MultimediaContract.View>(relaxed = true)
     private val getMoviesUseCase = mockk<GetMoviesUseCase>()
     private val getTvshowsUseCase = mockk<GetTvshowsUseCase>()
-    private val multimedia = listOf(
+    private val movies = listOf(
         MultimediaItem(
             id = 1,
             image = "https://harry-Potter.jpg",
             title = "Harry Potter",
             genres = listOf(1, 2, 3),
-            voteAverage = "4.2"
+            voteAverage = "4.2",
+            MultimediaType.MOVIES
+        )
+    )
+    private val tvshows = listOf(
+        MultimediaItem(
+            id = 1,
+            image = "https://harry-Potter.jpg",
+            title = "Harry Potter",
+            genres = listOf(1, 2, 3),
+            voteAverage = "4.2",
+            MultimediaType.TVSHOWS
         )
     )
 
@@ -53,7 +64,7 @@ class MultimediaPresenterTest() {
         coEvery {
             getMoviesUseCase()
         } answers {
-            flowOf(multimedia)
+            flowOf(movies)
         }
 
         presenter.onViewCreated(MultimediaType.MOVIES)
@@ -64,7 +75,7 @@ class MultimediaPresenterTest() {
             with(view) {
                 hideRefresh()
                 hideSkeleton()
-                loadMultimediaList(multimedia)
+                loadMultimediaList(movies)
             }
         }
 
@@ -97,7 +108,7 @@ class MultimediaPresenterTest() {
             view.run {
                 hideSkeleton()
                 hideRefresh()
-                loadMultimediaList(multimedia)
+                loadMultimediaList(movies)
             }
         }
     }
@@ -107,7 +118,7 @@ class MultimediaPresenterTest() {
         coEvery {
             getTvshowsUseCase()
         } answers {
-            flowOf(multimedia)
+            flowOf(tvshows)
         }
 
         presenter.onViewCreated(MultimediaType.TVSHOWS)
@@ -118,7 +129,7 @@ class MultimediaPresenterTest() {
             with(view) {
                 hideRefresh()
                 hideSkeleton()
-                loadMultimediaList(multimedia)
+                loadMultimediaList(tvshows)
             }
         }
 
@@ -151,7 +162,7 @@ class MultimediaPresenterTest() {
             view.run {
                 hideSkeleton()
                 hideRefresh()
-                loadMultimediaList(multimedia)
+                loadMultimediaList(tvshows)
             }
         }
     }

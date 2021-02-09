@@ -14,7 +14,7 @@
         <argument
             android:name="multimedia_type"
             android:defaultValue="MOVIES"
-            app:argType="com.piavillalba.multimedia.ui.MultimediaType"/>
+            app:argType="com.piavillalba.core.model.MultimediaType"/>
 
     </fragment>
 
@@ -27,7 +27,7 @@
         <argument
             android:name="multimedia_type"
             android:defaultValue="TVSHOWS"
-            app:argType="com.piavillalba.multimedia.ui.MultimediaType"/>
+            app:argType="com.piavillalba.core.model.MultimediaType"/>
 
     </fragment>
 

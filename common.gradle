@@ -4,6 +4,7 @@ import com.piavillalba.buildsrc.Releases
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 apply from: '../ktlint.gradle'
 
 android {
@@ -65,6 +66,10 @@ dependencies {
     implementation Libs.constraint
     implementation Libs.skeleton
     implementation Libs.shimmer
+
+    // Dagger Hilt
+    implementation Libs.hilt_android
+    kapt Libs.hilt_compiler
 
     // Navigation
     implementation Libs.navigationFragment

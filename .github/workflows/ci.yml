@@ -15,17 +15,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
       - name: Clean the app
         run: ./gradlew clean
 
-      - name: Build the app
-        run: ./gradlew build
-
       - name: ktlint
         run: ./gradlew ktlintCheck
 
-      - name: unittest
+      - name: multimedia unitTest
         run: ./gradlew multimedia:clean multimedia:testDebugUnitTest --stacktrace
+
+      - name: multimedia detail unitTest
+        run: ./gradlew multimediaDetail:clean multimediaDetail:testDebugUnitTest --stacktrace
+

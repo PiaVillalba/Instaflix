@@ -1,7 +1,10 @@
 package com.piavillalba.multimedia.ui
 
 import com.piavillalba.core.base.AbstractPresenter
+import com.piavillalba.core.constants.DETAIL_DEEP_LINK
 import com.piavillalba.core.model.CoroutineContextProvider
+import com.piavillalba.core.model.MultimediaType
+import com.piavillalba.multimedia.domain.model.MultimediaItem
 import com.piavillalba.multimedia.domain.usecase.GetMoviesUseCase
 import com.piavillalba.multimedia.domain.usecase.GetTvshowsUseCase
 import kotlinx.coroutines.flow.catch
@@ -22,6 +25,11 @@ class MultimediaPresenter(
             MultimediaType.MOVIES -> fetchMovies()
             MultimediaType.TVSHOWS -> fetchTvShows()
         }
+    }
+
+    override fun onItemSelected(multimediaItem: MultimediaItem) {
+        val deepLink = "$DETAIL_DEEP_LINK/${multimediaItem.type}/${multimediaItem.id}"
+        view?.goToMultimediaDetail(deepLink)
     }
 
     private fun fetchMovies() {

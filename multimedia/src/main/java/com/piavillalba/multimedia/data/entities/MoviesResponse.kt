@@ -2,6 +2,7 @@ package com.piavillalba.multimedia.data.entities
 
 import com.google.gson.annotations.SerializedName
 import com.piavillalba.core.constants.IMAGE_BASE_URL
+import com.piavillalba.core.model.MultimediaType
 import com.piavillalba.multimedia.domain.model.MultimediaItem
 
 data class MoviesResponse(
@@ -14,7 +15,7 @@ data class MovieResponseItem(
     val id: Int,
     @SerializedName("genre_ids")
     val genreIds: List<Int>,
-    @SerializedName("original_title")
+    @SerializedName("title")
     val title: String,
     @SerializedName("poster_path")
     val image: String,
@@ -28,7 +29,7 @@ data class MovieResponseItem(
             image = IMAGE_BASE_URL + this.image,
             title = this.title,
             voteAverage = this.vote.toString(),
-            genres = this.genreIds
-
+            genres = this.genreIds,
+            type = MultimediaType.MOVIES
         )
 }

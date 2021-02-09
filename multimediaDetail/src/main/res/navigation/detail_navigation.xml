@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_navigation"
+    app:startDestination="@id/multimediaDetailFragment">
+
+    <fragment
+        android:id="@+id/multimediaDetailFragment"
+        android:name="com.piavillalba.multimediadetail.ui.MultimediaDetailFragment"
+        android:label="MultimediaDetailFragment"
+        tools:layout="@layout/fragment_multimedia_detail">
+        <argument
+            android:name="multimedia_type"
+            android:defaultValue="MOVIES"
+            app:argType="com.piavillalba.core.model.MultimediaType"/>
+        <argument
+            android:name="id"
+            app:argType="string"/>
+        <deepLink app:uri="piavillalba://multimediaDetail/{multimedia_type}/{id}"/>
+
+    </fragment>
+</navigation>
