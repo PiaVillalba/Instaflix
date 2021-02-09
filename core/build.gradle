@@ -42,6 +42,7 @@ dependencies {
     // Core
     implementation Libs.kotlinJDK
     implementation Libs.coroutines_core
+    implementation Libs.appCompat
 
     // Network
     implementation Libs.retrofit
@@ -52,6 +53,7 @@ dependencies {
 
     // UI
     implementation Libs.glide
+    implementation Libs.navigationUI
 
     // Dagger Hilt
     implementation Libs.hilt_android

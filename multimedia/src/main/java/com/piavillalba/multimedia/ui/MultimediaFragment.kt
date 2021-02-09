@@ -9,6 +9,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ethanhua.skeleton.Skeleton
 import com.ethanhua.skeleton.SkeletonScreen
+import com.piavillalba.core.constants.DeepLink
+import com.piavillalba.core.extensions.startDeepLinkIntent
 import com.piavillalba.multimedia.R
 import com.piavillalba.multimedia.constants.ANGLE
 import com.piavillalba.multimedia.constants.EFECT_ENABLED
@@ -57,7 +59,7 @@ class MultimediaFragment : MultimediaContract.View, Fragment() {
         binding.rvMultimedia.run {
             setHasFixedSize(false)
             layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
-            adapter = MultimediaAdapter(this@MultimediaFragment)
+            adapter = MultimediaAdapter(presenter)
         }
     }
 
@@ -87,11 +89,11 @@ class MultimediaFragment : MultimediaContract.View, Fragment() {
     }
 
     override fun loadMultimediaList(multimediaItems: List<MultimediaItem>) {
-        binding.rvMultimedia.adapter = MultimediaAdapter(this@MultimediaFragment)
+        binding.rvMultimedia.adapter = MultimediaAdapter(presenter)
         (binding.rvMultimedia.adapter as MultimediaAdapter).submitList(multimediaItems)
     }
 
-    override fun onItemSelected(multimediaItem: MultimediaItem) {
-        // TODO: Go to movie detail
+    override fun goToMultimediaDetail(deepLink: DeepLink) {
+        view?.startDeepLinkIntent(deepLink)
     }
 }

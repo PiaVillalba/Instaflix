@@ -1,3 +1,4 @@
+include ':multimediaDetail'
 include ':multimedia'
 include ':test'
 include ':core'

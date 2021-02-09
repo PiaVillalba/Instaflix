@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="app_bar_height">200dp</dimen>
+
+    <dimen name="margin_extra_small">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+
+    <dimen name="height_large">200dp</dimen>
+    <dimen name="height_medium">100dp</dimen>
+    <dimen name="widht_large">200dp</dimen>
+    <dimen name="widht_medium">150dp</dimen>
+
+    <dimen name="title_small_text_size">18sp</dimen>
+    <dimen name="title_medium_text_size">22sp</dimen>
+    <dimen name="title_large_text_size">26sp</dimen>
+
+    <dimen name="body_small_text_size">12sp</dimen>
+    <dimen name="body_medium_text_size">14sp</dimen>
+    <dimen name="body_large_text_size">16sp</dimen>
+
+</resources>

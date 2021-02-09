@@ -1,11 +1,11 @@
 package com.piavillalba.multimedia
 
+import com.piavillalba.core.model.MultimediaType
 import com.piavillalba.multimedia.domain.model.MultimediaItem
 import com.piavillalba.multimedia.domain.usecase.GetMoviesUseCase
 import com.piavillalba.multimedia.domain.usecase.GetTvshowsUseCase
 import com.piavillalba.multimedia.ui.MultimediaContract
 import com.piavillalba.multimedia.ui.MultimediaPresenter
-import com.piavillalba.multimedia.ui.MultimediaType
 import com.piavillalba.test.CoroutineTestRule
 import io.mockk.coEvery
 import io.mockk.coVerify
