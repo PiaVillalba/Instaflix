@@ -27,5 +27,6 @@ interface MultimediaContract {
 
         fun onViewCreated(type: MultimediaType)
         fun actionButtomClicked()
+        fun onGenreSelected(genreId: Int)
     }
 }

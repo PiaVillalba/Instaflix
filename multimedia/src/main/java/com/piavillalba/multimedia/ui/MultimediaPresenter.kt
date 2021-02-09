@@ -22,6 +22,7 @@ class MultimediaPresenter(
     AbstractPresenter<MultimediaContract.View>(coroutineContextProvider) {
 
     private lateinit var multimediaType: MultimediaType
+    private lateinit var multimediaItems: List<MultimediaItem>
 
     override fun onViewCreated(multimediaTypeArg: MultimediaType) {
         multimediaType = multimediaTypeArg
@@ -47,6 +48,16 @@ class MultimediaPresenter(
         }
     }
 
+    override fun onGenreSelected(genreId: Int) {
+        val multimediaList = multimediaItems.filter {
+            it.genres.contains(genreId)
+        }
+
+        view?.loadMultimediaList(
+            multimediaList
+        )
+    }
+
     override fun onItemSelected(multimediaItem: MultimediaItem) {
         val deepLink = "$DETAIL_DEEP_LINK/${multimediaItem.type}/${multimediaItem.id}"
         view?.goToMultimediaDetail(deepLink)
@@ -61,6 +72,7 @@ class MultimediaPresenter(
                 }.collect {
                     withContext(coroutineContextProvider.mainContext) {
                         view?.run {
+                            multimediaItems = it
                             hideRefresh()
                             hideSkeleton()
                             loadMultimediaList(it)
@@ -79,6 +91,7 @@ class MultimediaPresenter(
                 }.collect {
                     withContext(coroutineContextProvider.mainContext) {
                         view?.run {
+                            multimediaItems = it
                             hideRefresh()
                             hideSkeleton()
                             loadMultimediaList(it)

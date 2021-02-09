@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/red</color>
+    <color name="colorPrimaryDark">@color/red</color>
+    <color name="colorAccent">@color/red</color>
+
+    <color name="status_bar_color">@color/colorPrimaryDark</color>
+    <color name="background_color">@color/colorPrimaryDark</color>
+    <color name="textColor">@color/white</color>
+    <color name="secondaryTextColor">@color/alto</color>
+    <color name="themeIconColor">@color/white</color>
+
+
+</resources>

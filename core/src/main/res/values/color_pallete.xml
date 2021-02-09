@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <attr name="appBackgroundColor" format="color" />
+    <attr name="textColor" format="color" />
+    <attr name="TextColorSecondary" format="color" />
+    <attr name="iconColor" format="color" />
+    <attr name="skeletonColor" format="color" />
+    <attr name="selectedIconColor" format="color"/>
+
+    <color name="silver_chalice">#AAAAAA</color>
+    <color name="white">#ffffff</color>
+
+    <color name="mine_shaft_700">#616161</color>
+    <color name="mine_shaft_800">#424242</color>
+    <color name="mine_shaft_900">#212121</color>
+
+    <color name="manatee">#919099</color>
+    <color name="steel_gray">#1A1824</color>
+    <color name="alto">#E0E0E0</color>
+
+    <color name="white_lilac">#F8F9FC</color>
+    <color name="red">#7f1a18</color>
+
+    <color name="dark">#25272A</color>
+    <color name="dark_800">#1B1C1F</color>
+
+
+</resources>

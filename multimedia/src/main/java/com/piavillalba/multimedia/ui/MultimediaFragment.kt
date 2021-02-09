@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -99,7 +100,16 @@ class MultimediaFragment : MultimediaContract.View, Fragment() {
     }
 
     override fun showGenresDialog(genres: List<Genre>) {
-        TODO("Not yet implemented")
+        val items = genres.map { it.name }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.genres_title)
+            .setItems(items.toTypedArray()) { dialog, idItem ->
+                dialog.dismiss()
+                val idGenre = genres[idItem].id
+                presenter.onGenreSelected(idGenre)
+            }
+            .show()
     }
 
     override fun goToMultimediaDetail(deepLink: DeepLink) {

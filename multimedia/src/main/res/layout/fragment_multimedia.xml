@@ -36,7 +36,7 @@
         app:rippleColor="@color/light_gray"
         app:elevation="@dimen/card_elevation"
         app:borderWidth="@dimen/zero"
-        android:backgroundTint="@color/colorSecondary"
+        android:backgroundTint="@color/red"
         app:fabSize="mini" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
