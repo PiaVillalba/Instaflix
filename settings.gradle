@@ -1,3 +1,4 @@
+include ':multimedia'
 include ':test'
 include ':core'
 include ':app'
