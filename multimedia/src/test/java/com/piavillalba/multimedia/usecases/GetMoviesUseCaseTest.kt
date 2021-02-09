@@ -1,5 +1,6 @@
 package com.piavillalba.multimedia.usecases
 
+import com.piavillalba.core.model.MultimediaType
 import com.piavillalba.multimedia.data.MultimediaRepositoryImpl
 import com.piavillalba.multimedia.domain.model.MultimediaItem
 import com.piavillalba.multimedia.domain.usecase.GetMoviesUseCase
@@ -23,7 +24,8 @@ class GetMoviesUseCaseTest {
             image = "https://harry-Potter.jpg",
             title = "Harry Potter",
             genres = listOf(1, 2, 3),
-            voteAverage = "4.2"
+            voteAverage = "4.2",
+            MultimediaType.MOVIES
         )
     )
 

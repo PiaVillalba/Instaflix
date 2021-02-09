@@ -1,5 +1,6 @@
 package com.piavillalba.multimedia.usecases
 
+import com.piavillalba.core.model.MultimediaType
 import com.piavillalba.multimedia.data.MultimediaRepositoryImpl
 import com.piavillalba.multimedia.domain.model.MultimediaItem
 import com.piavillalba.multimedia.domain.usecase.GetTvshowsUseCase
@@ -23,7 +24,8 @@ class GetTvshowsUseCaseTest {
             image = "https://greys-anatomy.jpg",
             title = "Greys Anatomy",
             genres = listOf(1, 2, 3),
-            voteAverage = "4.6"
+            voteAverage = "4.6",
+            MultimediaType.TVSHOWS
         )
     )
 

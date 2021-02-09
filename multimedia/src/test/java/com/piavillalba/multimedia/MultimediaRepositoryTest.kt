@@ -1,5 +1,6 @@
 package com.piavillalba.multimedia
 
+import com.piavillalba.core.model.MultimediaType
 import com.piavillalba.multimedia.data.MultimediaRepositoryImpl
 import com.piavillalba.multimedia.data.entities.MovieResponseItem
 import com.piavillalba.multimedia.data.entities.MoviesResponse
@@ -18,8 +19,8 @@ import org.junit.Test
 
 class MultimediaRepositoryTest() {
 
-    private val multimediaService = mockk<MultimediaService>()
     private lateinit var multimediaRepository: MultimediaRepositoryImpl
+    private val multimediaService = mockk<MultimediaService>()
     private val movieResponseItem = MovieResponseItem(
         id = 1,
         genreIds = listOf(1, 2, 3),
@@ -39,14 +40,16 @@ class MultimediaRepositoryTest() {
         genres = listOf(1, 2, 3),
         title = "Harry Potter",
         image = "https://image.tmdb.org/t/p/w200/image.jpg",
-        voteAverage = "4.8"
+        voteAverage = "4.8",
+        type = MultimediaType.MOVIES
     )
     private val tvshow = MultimediaItem(
         id = 1,
         genres = listOf(1, 2, 3),
         title = "Greys Anatomy",
         image = "https://image.tmdb.org/t/p/w200/image.jpg",
-        voteAverage = "4.6"
+        voteAverage = "4.6",
+        type = MultimediaType.TVSHOWS
     )
 
     init {
