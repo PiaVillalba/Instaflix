@@ -3,5 +3,6 @@
 
     <dimen name="skeleton_radius_card">3dp</dimen>
     <dimen name="zero">0dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
 
 </resources>

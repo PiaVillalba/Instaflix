@@ -1,7 +1,9 @@
 package com.piavillalba.multimedia.di
 
 import com.piavillalba.core.model.CoroutineContextProvider
+import com.piavillalba.multimedia.domain.repository.GenresRepository
 import com.piavillalba.multimedia.domain.repository.MultimediaRepository
+import com.piavillalba.multimedia.domain.usecase.GetGenresUseCase
 import com.piavillalba.multimedia.domain.usecase.GetMoviesUseCase
 import com.piavillalba.multimedia.domain.usecase.GetTvshowsUseCase
 import com.piavillalba.multimedia.ui.MultimediaContract
@@ -19,17 +21,25 @@ object MultimediaModule {
     @FragmentScoped
     @Provides
     fun providerGetMoviesUseCase(
-        getMultimediaRepository: MultimediaRepository
+        multimediaRepository: MultimediaRepository
     ): GetMoviesUseCase {
-        return GetMoviesUseCase(getMultimediaRepository)
+        return GetMoviesUseCase(multimediaRepository)
     }
 
     @FragmentScoped
     @Provides
     fun providerGetTvshowsUseCase(
-        getMultimediaRepository: MultimediaRepository
+        multimediaRepository: MultimediaRepository
     ): GetTvshowsUseCase {
-        return GetTvshowsUseCase(getMultimediaRepository)
+        return GetTvshowsUseCase(multimediaRepository)
+    }
+
+    @FragmentScoped
+    @Provides
+    fun providerGetGenresUseCase(
+        genresRepository: GenresRepository
+    ): GetGenresUseCase {
+        return GetGenresUseCase(genresRepository)
     }
 
     @FragmentScoped
@@ -37,12 +47,14 @@ object MultimediaModule {
     fun provideMoviePresenter(
         coroutineContextProvider: CoroutineContextProvider,
         getMoviesUseCase: GetMoviesUseCase,
-        getTvshowsUseCase: GetTvshowsUseCase
+        getTvshowsUseCase: GetTvshowsUseCase,
+        getGenresUseCase: GetGenresUseCase
     ): MultimediaContract.Presenter {
         return MultimediaPresenter(
             coroutineContextProvider,
             getMoviesUseCase,
-            getTvshowsUseCase
+            getTvshowsUseCase,
+            getGenresUseCase
         )
     }
 }

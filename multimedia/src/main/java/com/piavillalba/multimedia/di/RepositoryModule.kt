@@ -1,7 +1,9 @@
 package com.piavillalba.multimedia.di
 
+import com.piavillalba.multimedia.data.GenresRepositoryImpl
 import com.piavillalba.multimedia.data.MultimediaRepositoryImpl
 import com.piavillalba.multimedia.data.network.MultimediaService
+import com.piavillalba.multimedia.domain.repository.GenresRepository
 import com.piavillalba.multimedia.domain.repository.MultimediaRepository
 import dagger.Module
 import dagger.Provides
@@ -19,5 +21,13 @@ object RepositoryModule {
         multimediaService: MultimediaService
     ): MultimediaRepository {
         return MultimediaRepositoryImpl(multimediaService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGenresRepository(
+        multimediaService: MultimediaService
+    ): GenresRepository {
+        return GenresRepositoryImpl(multimediaService)
     }
 }

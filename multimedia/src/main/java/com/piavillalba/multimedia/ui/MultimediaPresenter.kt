@@ -5,6 +5,7 @@ import com.piavillalba.core.constants.DETAIL_DEEP_LINK
 import com.piavillalba.core.model.CoroutineContextProvider
 import com.piavillalba.core.model.MultimediaType
 import com.piavillalba.multimedia.domain.model.MultimediaItem
+import com.piavillalba.multimedia.domain.usecase.GetGenresUseCase
 import com.piavillalba.multimedia.domain.usecase.GetMoviesUseCase
 import com.piavillalba.multimedia.domain.usecase.GetTvshowsUseCase
 import kotlinx.coroutines.flow.catch
@@ -15,15 +16,34 @@ import kotlinx.coroutines.withContext
 class MultimediaPresenter(
     coroutineContextProvider: CoroutineContextProvider,
     private val getMoviesUseCase: GetMoviesUseCase,
-    private val getTvshowsUseCase: GetTvshowsUseCase
+    private val getTvshowsUseCase: GetTvshowsUseCase,
+    private val getGenresUseCase: GetGenresUseCase
 ) : MultimediaContract.Presenter,
     AbstractPresenter<MultimediaContract.View>(coroutineContextProvider) {
 
-    override fun onViewCreated(multimediaType: MultimediaType) {
+    private lateinit var multimediaType: MultimediaType
+
+    override fun onViewCreated(multimediaTypeArg: MultimediaType) {
+        multimediaType = multimediaTypeArg
         view?.showSkeleton()
+
         when (multimediaType) {
             MultimediaType.MOVIES -> fetchMovies()
             MultimediaType.TVSHOWS -> fetchTvShows()
+        }
+    }
+
+    override fun actionButtomClicked() {
+        launch {
+            getGenresUseCase(multimediaType)
+                .catch {
+                    cause ->
+                    throw cause
+                }.collect {
+                    withContext(coroutineContextProvider.mainContext) {
+                        view?.showGenresDialog(it)
+                    }
+                }
         }
     }
 
