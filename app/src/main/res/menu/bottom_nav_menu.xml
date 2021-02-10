@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/moviesFragment"
-        android:icon="@drawable/ic_multimedia_navigation"
+        android:icon="@drawable/ic_film"
         android:title="@string/movie_title"
         app:showAsAction="always"/>
 
