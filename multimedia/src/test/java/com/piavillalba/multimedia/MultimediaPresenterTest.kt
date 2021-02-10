@@ -2,6 +2,7 @@ package com.piavillalba.multimedia
 
 import com.piavillalba.core.model.MultimediaType
 import com.piavillalba.multimedia.domain.model.MultimediaItem
+import com.piavillalba.multimedia.domain.usecase.GetGenresUseCase
 import com.piavillalba.multimedia.domain.usecase.GetMoviesUseCase
 import com.piavillalba.multimedia.domain.usecase.GetTvshowsUseCase
 import com.piavillalba.multimedia.ui.MultimediaContract
@@ -27,6 +28,7 @@ class MultimediaPresenterTest() {
     private val view = mockk<MultimediaContract.View>(relaxed = true)
     private val getMoviesUseCase = mockk<GetMoviesUseCase>()
     private val getTvshowsUseCase = mockk<GetTvshowsUseCase>()
+    private val getGenresUseCase = mockk<GetGenresUseCase>()
     private val movies = listOf(
         MultimediaItem(
             id = 1,
@@ -53,7 +55,8 @@ class MultimediaPresenterTest() {
         presenter = MultimediaPresenter(
             coroutineTestRule.coroutineContextProvider,
             getMoviesUseCase,
-            getTvshowsUseCase
+            getTvshowsUseCase,
+            getGenresUseCase
         )
 
         presenter.bind(view)

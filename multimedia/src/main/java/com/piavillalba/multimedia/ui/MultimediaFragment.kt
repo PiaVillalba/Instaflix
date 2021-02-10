@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,6 +18,7 @@ import com.piavillalba.multimedia.constants.EFECT_ENABLED
 import com.piavillalba.multimedia.constants.MULTIMEDIA_COUNT
 import com.piavillalba.multimedia.constants.NUMBER_OF_COLUMNS
 import com.piavillalba.multimedia.databinding.FragmentMultimediaBinding
+import com.piavillalba.multimedia.domain.model.Genre
 import com.piavillalba.multimedia.domain.model.MultimediaItem
 import com.piavillalba.multimedia.ui.adapter.MultimediaAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,6 +69,10 @@ class MultimediaFragment : MultimediaContract.View, Fragment() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             presenter.onViewCreated(args.multimediaType)
         }
+
+        binding.fabMultimedia.setOnClickListener {
+            presenter.actionButtomClicked()
+        }
     }
 
     override fun showSkeleton() {
@@ -91,6 +97,19 @@ class MultimediaFragment : MultimediaContract.View, Fragment() {
     override fun loadMultimediaList(multimediaItems: List<MultimediaItem>) {
         binding.rvMultimedia.adapter = MultimediaAdapter(presenter)
         (binding.rvMultimedia.adapter as MultimediaAdapter).submitList(multimediaItems)
+    }
+
+    override fun showGenresDialog(genres: List<Genre>) {
+        val items = genres.map { it.name }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.genres_title)
+            .setItems(items.toTypedArray()) { dialog, idItem ->
+                dialog.dismiss()
+                val idGenre = genres[idItem].id
+                presenter.onGenreSelected(idGenre)
+            }
+            .show()
     }
 
     override fun goToMultimediaDetail(deepLink: DeepLink) {

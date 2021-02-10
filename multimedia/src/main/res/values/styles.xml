@@ -29,7 +29,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/card_vote_box_margin</item>
         <item name="android:textSize">@dimen/card_vote_text_size</item>
-        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textColor">@color/light_gray</item>
         <item name="android:background">@drawable/shape_background_vote</item>
         <item name="android:padding">@dimen/card_margin_horizontal</item>
     </style>

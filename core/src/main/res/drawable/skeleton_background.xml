@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/primaryLightColor" />
+    <solid android:color="@color/secondaryTextColor" />
     <corners android:radius="@dimen/skeleton_radius_card" />
 </shape>
