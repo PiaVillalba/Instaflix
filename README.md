@@ -21,7 +21,6 @@ Instaflix is an application that shows the popular movies and series of the mome
 
 
 ## Features
-* Splash
 * Multimedia (Movies and Tv shows)
 * Multimedia detail
 * Filter by genres
