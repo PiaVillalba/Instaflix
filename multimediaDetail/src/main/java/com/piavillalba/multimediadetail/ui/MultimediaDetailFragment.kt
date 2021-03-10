@@ -20,7 +20,7 @@ class MultimediaDetailFragment : MultimediaDetailContract.View, Fragment() {
     lateinit var presenter: MultimediaDetailContract.Presenter
     private lateinit var binding: FragmentMultimediaDetailBinding
     val args: MultimediaDetailFragmentArgs by navArgs()
-    var xxx: String? = null
+    var userName: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
