@@ -20,7 +20,7 @@ class MultimediaDetailFragment : MultimediaDetailContract.View, Fragment() {
     lateinit var presenter: MultimediaDetailContract.Presenter
     private lateinit var binding: FragmentMultimediaDetailBinding
     val args: MultimediaDetailFragmentArgs by navArgs()
-
+    var xxx: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,6 +66,7 @@ class MultimediaDetailFragment : MultimediaDetailContract.View, Fragment() {
     }
 
     override fun loadMultimediaDetail(multimediaDetail: MultimediaDetail) {
+        xxx = "Hola prueba"
         binding.apply {
             with(multimediaDetail) {
                 tvDetailTitle.text = title
