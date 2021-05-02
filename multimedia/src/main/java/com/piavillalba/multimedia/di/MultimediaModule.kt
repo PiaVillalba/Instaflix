@@ -1,24 +1,21 @@
 package com.piavillalba.multimedia.di
 
-import com.piavillalba.core.model.CoroutineContextProvider
 import com.piavillalba.multimedia.domain.repository.GenresRepository
 import com.piavillalba.multimedia.domain.repository.MultimediaRepository
 import com.piavillalba.multimedia.domain.usecase.GetGenresUseCase
 import com.piavillalba.multimedia.domain.usecase.GetMoviesUseCase
 import com.piavillalba.multimedia.domain.usecase.GetTvshowsUseCase
-import com.piavillalba.multimedia.ui.MultimediaContract
-import com.piavillalba.multimedia.ui.MultimediaPresenter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
-import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ViewModelComponent::class)
 object MultimediaModule {
 
-    @FragmentScoped
+    @ViewModelScoped
     @Provides
     fun providerGetMoviesUseCase(
         multimediaRepository: MultimediaRepository
@@ -26,7 +23,7 @@ object MultimediaModule {
         return GetMoviesUseCase(multimediaRepository)
     }
 
-    @FragmentScoped
+    @ViewModelScoped
     @Provides
     fun providerGetTvshowsUseCase(
         multimediaRepository: MultimediaRepository
@@ -34,7 +31,7 @@ object MultimediaModule {
         return GetTvshowsUseCase(multimediaRepository)
     }
 
-    @FragmentScoped
+    @ViewModelScoped
     @Provides
     fun providerGetGenresUseCase(
         genresRepository: GenresRepository
@@ -42,19 +39,4 @@ object MultimediaModule {
         return GetGenresUseCase(genresRepository)
     }
 
-    @FragmentScoped
-    @Provides
-    fun provideMoviePresenter(
-        coroutineContextProvider: CoroutineContextProvider,
-        getMoviesUseCase: GetMoviesUseCase,
-        getTvshowsUseCase: GetTvshowsUseCase,
-        getGenresUseCase: GetGenresUseCase
-    ): MultimediaContract.Presenter {
-        return MultimediaPresenter(
-            coroutineContextProvider,
-            getMoviesUseCase,
-            getTvshowsUseCase,
-            getGenresUseCase
-        )
-    }
 }

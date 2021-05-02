@@ -5,8 +5,7 @@ import com.piavillalba.multimedia.domain.model.MultimediaItem
 import com.piavillalba.multimedia.domain.usecase.GetGenresUseCase
 import com.piavillalba.multimedia.domain.usecase.GetMoviesUseCase
 import com.piavillalba.multimedia.domain.usecase.GetTvshowsUseCase
-import com.piavillalba.multimedia.ui.MultimediaContract
-import com.piavillalba.multimedia.ui.MultimediaPresenter
+import com.piavillalba.multimedia.ui.MultimediaViewModel
 import com.piavillalba.test.CoroutineTestRule
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -19,13 +18,12 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class MultimediaPresenterTest() {
+class MultimediaPresenterTest {
 
     @get: Rule
     private val coroutineTestRule = CoroutineTestRule()
 
-    private lateinit var presenter: MultimediaContract.Presenter
-    private val view = mockk<MultimediaContract.View>(relaxed = true)
+    private lateinit var presenter : MultimediaViewModel
     private val getMoviesUseCase = mockk<GetMoviesUseCase>()
     private val getTvshowsUseCase = mockk<GetTvshowsUseCase>()
     private val getGenresUseCase = mockk<GetGenresUseCase>()
@@ -52,14 +50,13 @@ class MultimediaPresenterTest() {
 
     @Before
     fun setUp() {
-        presenter = MultimediaPresenter(
+        presenter = MultimediaViewModel(
             coroutineTestRule.coroutineContextProvider,
             getMoviesUseCase,
             getTvshowsUseCase,
             getGenresUseCase
         )
 
-        presenter.bind(view)
     }
 
     @Test
@@ -170,8 +167,4 @@ class MultimediaPresenterTest() {
         }
     }
 
-    @After
-    fun clear() {
-        presenter.unBind()
-    }
 }

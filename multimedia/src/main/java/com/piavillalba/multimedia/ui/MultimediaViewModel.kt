@@ -1,32 +1,50 @@
 package com.piavillalba.multimedia.ui
 
-import com.piavillalba.core.base.AbstractPresenter
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.piavillalba.core.base.BaseViewModel
 import com.piavillalba.core.constants.DETAIL_DEEP_LINK
 import com.piavillalba.core.model.CoroutineContextProvider
 import com.piavillalba.core.model.MultimediaType
+import com.piavillalba.multimedia.domain.model.Genre
 import com.piavillalba.multimedia.domain.model.MultimediaItem
 import com.piavillalba.multimedia.domain.usecase.GetGenresUseCase
 import com.piavillalba.multimedia.domain.usecase.GetMoviesUseCase
 import com.piavillalba.multimedia.domain.usecase.GetTvshowsUseCase
+import com.piavillalba.multimedia.ui.adapter.MultimediaAdapterListener
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MultimediaPresenter(
+@HiltViewModel
+class MultimediaViewModel @Inject constructor(
     coroutineContextProvider: CoroutineContextProvider,
     private val getMoviesUseCase: GetMoviesUseCase,
     private val getTvshowsUseCase: GetTvshowsUseCase,
     private val getGenresUseCase: GetGenresUseCase
-) : MultimediaContract.Presenter,
-    AbstractPresenter<MultimediaContract.View>(coroutineContextProvider) {
+) : BaseViewModel(coroutineContextProvider), MultimediaAdapterListener {
+
+    private val _loadMultimediaList = MutableLiveData<List<MultimediaItem>>()
+    val loadMultimediaList: LiveData<List<MultimediaItem>> = _loadMultimediaList
+
+    private val _showGenresDialog = MutableLiveData<List<Genre>>()
+    val showGenresDialog: LiveData<List<Genre>> = _showGenresDialog
+
+    private val _showSkeleton = MutableLiveData<Unit>()
+    val showSkeleton: LiveData<Unit> = _showSkeleton
+
+    private val _navigateToDetail = MutableLiveData<String>()
+    val navigateToDetail: LiveData<String> = _navigateToDetail
 
     private lateinit var multimediaType: MultimediaType
     private lateinit var multimediaItems: List<MultimediaItem>
 
-    override fun onViewCreated(multimediaTypeArg: MultimediaType) {
+    fun onViewCreated(multimediaTypeArg: MultimediaType) {
         multimediaType = multimediaTypeArg
-        view?.showSkeleton()
+        _showSkeleton.postValue(Unit)
 
         when (multimediaType) {
             MultimediaType.MOVIES -> fetchMovies()
@@ -34,49 +52,40 @@ class MultimediaPresenter(
         }
     }
 
-    override fun actionButtomClicked() {
+    fun actionButtomClicked() {
         launch {
             getGenresUseCase(multimediaType)
-                .catch {
-                    cause ->
+                .catch { cause ->
                     throw cause
                 }.collect {
                     withContext(coroutineContextProvider.mainContext) {
-                        view?.showGenresDialog(it)
+                        _showGenresDialog.postValue(it)
                     }
                 }
         }
     }
 
-    override fun onGenreSelected(genreId: Int) {
+    fun onGenreSelected(genreId: Int) {
         val multimediaList = multimediaItems.filter {
             it.genres.contains(genreId)
         }
 
-        view?.loadMultimediaList(
-            multimediaList
-        )
+        _loadMultimediaList.postValue(multimediaList)
     }
 
     override fun onItemSelected(multimediaItem: MultimediaItem) {
         val deepLink = "$DETAIL_DEEP_LINK/${multimediaItem.type}/${multimediaItem.id}"
-        view?.goToMultimediaDetail(deepLink)
+        _navigateToDetail.postValue(deepLink)
     }
 
     private fun fetchMovies() {
         launch {
             getMoviesUseCase()
-                .catch {
-                    cause ->
+                .catch { cause ->
                     throw cause
                 }.collect {
                     withContext(coroutineContextProvider.mainContext) {
-                        view?.run {
-                            multimediaItems = it
-                            hideRefresh()
-                            hideSkeleton()
-                            loadMultimediaList(it)
-                        }
+                        _loadMultimediaList.postValue(it)
                     }
                 }
         }
@@ -85,19 +94,15 @@ class MultimediaPresenter(
     private fun fetchTvShows() {
         launch {
             getTvshowsUseCase()
-                .catch {
-                    cause ->
+                .catch { cause ->
                     throw cause
                 }.collect {
                     withContext(coroutineContextProvider.mainContext) {
-                        view?.run {
-                            multimediaItems = it
-                            hideRefresh()
-                            hideSkeleton()
-                            loadMultimediaList(it)
-                        }
+                        _loadMultimediaList.postValue(it)
                     }
                 }
         }
     }
+
+
 }

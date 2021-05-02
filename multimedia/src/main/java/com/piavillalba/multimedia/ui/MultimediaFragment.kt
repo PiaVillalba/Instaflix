@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ethanhua.skeleton.Skeleton
@@ -22,23 +24,16 @@ import com.piavillalba.multimedia.domain.model.Genre
 import com.piavillalba.multimedia.domain.model.MultimediaItem
 import com.piavillalba.multimedia.ui.adapter.MultimediaAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class MultimediaFragment : MultimediaContract.View, Fragment() {
+class MultimediaFragment : Fragment() {
 
-    @Inject
-    lateinit var presenter: MultimediaContract.Presenter
     private lateinit var binding: FragmentMultimediaBinding
     private lateinit var moviesSkeletonScreen: SkeletonScreen
+
+    private val viewModel: MultimediaViewModel by viewModels()
+
     private val args by navArgs<MultimediaFragmentArgs>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        lifecycle.addObserver(presenter)
-        presenter.bind(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,30 +47,49 @@ class MultimediaFragment : MultimediaContract.View, Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpObservers()
         setUpRecycler()
         setUpSwipeRefresh()
-        presenter.onViewCreated(args.multimediaType)
+        viewModel.onViewCreated(args.multimediaType)
+    }
+
+    private fun setUpObservers() {
+        viewModel.showSkeleton.observe(viewLifecycleOwner, Observer {
+            showSkeleton()
+        })
+        viewModel.showGenresDialog.observe(viewLifecycleOwner, Observer {
+            showGenresDialog(it)
+        })
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
+            goToMultimediaDetail(it)
+        })
+        viewModel.loadMultimediaList.observe(viewLifecycleOwner, Observer {
+            hideRefresh()
+            hideSkeleton()
+            loadMultimediaList(it)
+        })
+
     }
 
     private fun setUpRecycler() {
         binding.rvMultimedia.run {
             setHasFixedSize(false)
             layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
-            adapter = MultimediaAdapter(presenter)
+            adapter = MultimediaAdapter(viewModel)
         }
     }
 
     private fun setUpSwipeRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            presenter.onViewCreated(args.multimediaType)
+            viewModel.onViewCreated(args.multimediaType)
         }
 
         binding.fabMultimedia.setOnClickListener {
-            presenter.actionButtomClicked()
+            viewModel.actionButtomClicked()
         }
     }
 
-    override fun showSkeleton() {
+    private fun showSkeleton() {
         moviesSkeletonScreen = Skeleton
             .bind(binding.rvMultimedia)
             .load(R.layout.item_multimedia_skeleton)
@@ -86,20 +100,20 @@ class MultimediaFragment : MultimediaContract.View, Fragment() {
             .show()
     }
 
-    override fun hideSkeleton() {
-        moviesSkeletonScreen.hide()
+    private fun hideSkeleton() {
+        moviesSkeletonScreen?.hide()
     }
 
-    override fun hideRefresh() {
+    private fun hideRefresh() {
         binding.swipeRefreshLayout.isRefreshing = false
     }
 
-    override fun loadMultimediaList(multimediaItems: List<MultimediaItem>) {
-        binding.rvMultimedia.adapter = MultimediaAdapter(presenter)
+    private fun loadMultimediaList(multimediaItems: List<MultimediaItem>) {
+        binding.rvMultimedia.adapter = MultimediaAdapter(viewModel)
         (binding.rvMultimedia.adapter as MultimediaAdapter).submitList(multimediaItems)
     }
 
-    override fun showGenresDialog(genres: List<Genre>) {
+    private fun showGenresDialog(genres: List<Genre>) {
         val items = genres.map { it.name }
 
         AlertDialog.Builder(requireContext())
@@ -107,12 +121,12 @@ class MultimediaFragment : MultimediaContract.View, Fragment() {
             .setItems(items.toTypedArray()) { dialog, idItem ->
                 dialog.dismiss()
                 val idGenre = genres[idItem].id
-                presenter.onGenreSelected(idGenre)
+                viewModel.onGenreSelected(idGenre)
             }
             .show()
     }
 
-    override fun goToMultimediaDetail(deepLink: DeepLink) {
+    private fun goToMultimediaDetail(deepLink: DeepLink) {
         view?.startDeepLinkIntent(deepLink)
     }
 }

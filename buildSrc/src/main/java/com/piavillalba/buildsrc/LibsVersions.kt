@@ -11,6 +11,7 @@ object LibsVersions {
     const val material_version = "1.2.1"
     const val constraint_version = "2.0.4"
     const val navigation_version = "2.3.2"
+    const val lifecycle = "2.3.1"
 
     // UI
     const val skeleton_version = "1.1.2"
@@ -18,7 +19,7 @@ object LibsVersions {
     const val glide_version = "4.9.0"
 
     // DI
-    const val hilt_version = "2.31-alpha"
+    const val hilt_version = "2.35.1"
 
     // Core
     const val coroutines_version = "1.4.2"
