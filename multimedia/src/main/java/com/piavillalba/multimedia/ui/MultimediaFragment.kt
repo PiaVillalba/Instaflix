@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ethanhua.skeleton.Skeleton
 import com.ethanhua.skeleton.SkeletonScreen
+import com.piavillalba.core.constants.DETAIL_DEEP_LINK
 import com.piavillalba.core.constants.DeepLink
 import com.piavillalba.core.extensions.startDeepLinkIntent
 import com.piavillalba.multimedia.R
@@ -23,10 +24,11 @@ import com.piavillalba.multimedia.databinding.FragmentMultimediaBinding
 import com.piavillalba.multimedia.domain.model.Genre
 import com.piavillalba.multimedia.domain.model.MultimediaItem
 import com.piavillalba.multimedia.ui.adapter.MultimediaAdapter
+import com.piavillalba.multimedia.ui.adapter.MultimediaAdapterListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MultimediaFragment : Fragment() {
+class MultimediaFragment : Fragment(), MultimediaAdapterListener {
 
     private lateinit var binding: FragmentMultimediaBinding
     private lateinit var moviesSkeletonScreen: SkeletonScreen
@@ -60,9 +62,6 @@ class MultimediaFragment : Fragment() {
         viewModel.showGenresDialog.observe(viewLifecycleOwner, Observer {
             showGenresDialog(it)
         })
-        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
-            goToMultimediaDetail(it)
-        })
         viewModel.loadMultimediaList.observe(viewLifecycleOwner, Observer {
             hideRefresh()
             hideSkeleton()
@@ -75,7 +74,7 @@ class MultimediaFragment : Fragment() {
         binding.rvMultimedia.run {
             setHasFixedSize(false)
             layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
-            adapter = MultimediaAdapter(viewModel)
+            adapter = MultimediaAdapter(this@MultimediaFragment)
         }
     }
 
@@ -109,7 +108,7 @@ class MultimediaFragment : Fragment() {
     }
 
     private fun loadMultimediaList(multimediaItems: List<MultimediaItem>) {
-        binding.rvMultimedia.adapter = MultimediaAdapter(viewModel)
+        binding.rvMultimedia.adapter = MultimediaAdapter(this)
         (binding.rvMultimedia.adapter as MultimediaAdapter).submitList(multimediaItems)
     }
 
@@ -124,6 +123,11 @@ class MultimediaFragment : Fragment() {
                 viewModel.onGenreSelected(idGenre)
             }
             .show()
+    }
+
+    override fun onItemSelected(multimediaItem: MultimediaItem) {
+        val deepLink = "$DETAIL_DEEP_LINK/${multimediaItem.type}/${multimediaItem.id}"
+        goToMultimediaDetail(deepLink)
     }
 
     private fun goToMultimediaDetail(deepLink: DeepLink) {
