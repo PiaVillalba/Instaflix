@@ -6,6 +6,7 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 dependencies {
 
+    implementation Libs.glide
     // Unit test
     testImplementation Libs.junit
     testImplementation Libs.mockk

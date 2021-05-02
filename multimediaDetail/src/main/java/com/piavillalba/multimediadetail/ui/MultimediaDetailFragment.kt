@@ -5,28 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.piavillalba.core.extensions.setImage
 import com.piavillalba.multimediadetail.R
 import com.piavillalba.multimediadetail.databinding.FragmentMultimediaDetailBinding
-import com.piavillalba.multimediadetail.domain.model.MultimediaDetail
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class MultimediaDetailFragment : MultimediaDetailContract.View, Fragment() {
+class MultimediaDetailFragment : Fragment() {
 
-    @Inject
-    lateinit var presenter: MultimediaDetailContract.Presenter
     private lateinit var binding: FragmentMultimediaDetailBinding
-    val args: MultimediaDetailFragmentArgs by navArgs()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        lifecycle.addObserver(presenter)
-        presenter.bind(this)
-    }
+    private val args: MultimediaDetailFragmentArgs by navArgs()
+    private val multimediaDetailViewModel: MultimediaDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +24,10 @@ class MultimediaDetailFragment : MultimediaDetailContract.View, Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMultimediaDetailBinding.inflate(inflater, container, false)
+        binding.apply {
+            viewModel = multimediaDetailViewModel
+            lifecycleOwner = this@MultimediaDetailFragment
+        }
         return binding.root
     }
 
@@ -54,27 +48,7 @@ class MultimediaDetailFragment : MultimediaDetailContract.View, Fragment() {
     private fun getArgumentsParams() {
         val type = args.multimediaType
         val idMultimedia = args.id
-        presenter.onViewCreated(type, idMultimedia)
+        multimediaDetailViewModel.onViewCreated(type, idMultimedia)
     }
 
-    override fun showSkeleton() {
-        TODO("Not yet implemented")
-    }
-
-    override fun hideSkeleton() {
-        TODO("Not yet implemented")
-    }
-
-    override fun loadMultimediaDetail(multimediaDetail: MultimediaDetail) {
-        binding.apply {
-            with(multimediaDetail) {
-                tvDetailTitle.text = title
-                tvDetailsubtitle.text = subtitle
-                tvDetailOverview.text = overview
-                tvDetailRating.text = voteAverage
-                ivDetailPath.setImage(image, R.drawable.ic_image_preview)
-                ivDetailPoster.setImage(poster, R.drawable.ic_image_preview)
-            }
-        }
-    }
 }

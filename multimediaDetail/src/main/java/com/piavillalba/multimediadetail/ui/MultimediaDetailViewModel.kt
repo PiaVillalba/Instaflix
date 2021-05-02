@@ -1,23 +1,31 @@
 package com.piavillalba.multimediadetail.ui
 
-import com.piavillalba.core.base.AbstractPresenter
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.piavillalba.core.base.BaseViewModel
 import com.piavillalba.core.model.CoroutineContextProvider
 import com.piavillalba.core.model.MultimediaType
+import com.piavillalba.multimediadetail.domain.model.MultimediaDetail
 import com.piavillalba.multimediadetail.domain.usecase.GetMovieDetailUseCase
 import com.piavillalba.multimediadetail.domain.usecase.GetTvshowDetailUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MultimediaDetailPresenter(
+@HiltViewModel
+class MultimediaDetailViewModel @Inject constructor(
     private val getMovieDetailUseCase: GetMovieDetailUseCase,
     private val getTvshowDetailUseCase: GetTvshowDetailUseCase,
     coroutineContextProvider: CoroutineContextProvider,
-) : MultimediaDetailContract.Presenter,
-    AbstractPresenter<MultimediaDetailContract.View>(coroutineContextProvider) {
+) : BaseViewModel(coroutineContextProvider) {
 
-    override fun onViewCreated(type: MultimediaType, idMultimedia: String) {
+    private val _multimediaDetail = MutableLiveData<MultimediaDetail>()
+    val multimediaDetail: LiveData<MultimediaDetail> = _multimediaDetail
+
+    fun onViewCreated(type: MultimediaType, idMultimedia: String) {
         when (type) {
             MultimediaType.MOVIES -> fetchMovieById(idMultimedia)
             MultimediaType.TVSHOWS -> fetchTvshowById(idMultimedia)
@@ -27,14 +35,11 @@ class MultimediaDetailPresenter(
     private fun fetchMovieById(id: String) {
         launch {
             getMovieDetailUseCase(id.toInt())
-                .catch {
-                    cause ->
+                .catch { cause ->
                     throw cause
                 }.collect {
                     withContext(coroutineContextProvider.mainContext) {
-                        view?.run {
-                            loadMultimediaDetail(it)
-                        }
+                        _multimediaDetail.postValue(it)
                     }
                 }
         }
@@ -47,9 +52,7 @@ class MultimediaDetailPresenter(
                     throw cause
                 }.collect {
                     withContext(coroutineContextProvider.mainContext) {
-                        view?.run {
-                            loadMultimediaDetail(it)
-                        }
+                        _multimediaDetail.postValue(it)
                     }
                 }
         }

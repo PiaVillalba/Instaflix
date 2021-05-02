@@ -4,8 +4,7 @@ import com.piavillalba.core.model.MultimediaType
 import com.piavillalba.multimediadetail.domain.model.MultimediaDetail
 import com.piavillalba.multimediadetail.domain.usecase.GetMovieDetailUseCase
 import com.piavillalba.multimediadetail.domain.usecase.GetTvshowDetailUseCase
-import com.piavillalba.multimediadetail.ui.MultimediaDetailContract
-import com.piavillalba.multimediadetail.ui.MultimediaDetailPresenter
+import com.piavillalba.multimediadetail.ui.MultimediaDetailViewModel
 import com.piavillalba.test.CoroutineTestRule
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -23,8 +22,7 @@ class MultimediaDetailPresenterTest {
     @get: Rule
     private val coroutineTestRule = CoroutineTestRule()
 
-    private lateinit var presenter: MultimediaDetailContract.Presenter
-    private val view = mockk<MultimediaDetailContract.View>(relaxed = true)
+    private lateinit var presenter: MultimediaDetailViewModel
     private val getMovieDetailUseCase = mockk<GetMovieDetailUseCase>()
     private val getTvshowDetailUseCase = mockk<GetTvshowDetailUseCase>()
     private val multimediaDetail = MultimediaDetail(
@@ -44,13 +42,12 @@ class MultimediaDetailPresenterTest {
 
     @Before
     fun setUp() {
-        presenter = MultimediaDetailPresenter(
+        presenter = MultimediaDetailViewModel(
             getMovieDetailUseCase,
             getTvshowDetailUseCase,
             coroutineTestRule.coroutineContextProvider
         )
 
-        presenter.bind(view)
     }
 
     @Test
@@ -65,7 +62,7 @@ class MultimediaDetailPresenterTest {
 
         coVerifyOrder {
             getMovieDetailUseCase(1)
-            view.loadMultimediaDetail(multimediaDetail)
+            //view.loadMultimediaDetail(multimediaDetail)
         }
 
         coVerify(exactly = 0) {
@@ -93,7 +90,7 @@ class MultimediaDetailPresenterTest {
 
         verify(exactly = 0) {
             getTvshowDetailUseCase(1)
-            view.loadMultimediaDetail(multimediaDetail)
+          //  view.loadMultimediaDetail(multimediaDetail)
         }
     }
 
@@ -109,7 +106,7 @@ class MultimediaDetailPresenterTest {
 
         coVerifyOrder {
             getTvshowDetailUseCase(1)
-            view.loadMultimediaDetail(multimediaDetail)
+          //  view.loadMultimediaDetail(multimediaDetail)
         }
 
         coVerify(exactly = 0) {
@@ -137,12 +134,8 @@ class MultimediaDetailPresenterTest {
 
         verify(exactly = 0) {
             getMovieDetailUseCase(1)
-            view.loadMultimediaDetail(multimediaDetail)
+           // view.loadMultimediaDetail(multimediaDetail)
         }
     }
 
-    @After
-    fun clear() {
-        presenter.unBind()
-    }
 }
